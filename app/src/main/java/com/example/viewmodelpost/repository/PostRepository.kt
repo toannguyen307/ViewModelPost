@@ -4,13 +4,8 @@ import com.example.viewmodelpost.api.APIManager
 import com.example.viewmodelpost.model.Post
 import com.example.viewmodelpost.model.Users
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
 
 class PostRepository {
-    private val disposable: CompositeDisposable by lazy(::CompositeDisposable)
     companion object {
         private var INSTANCE: PostRepository? = null
         fun getInstance(): PostRepository {
@@ -21,25 +16,10 @@ class PostRepository {
         }
     }
 
-    fun getPostList(onResult: (isSuccess: Boolean, postList: List<Post>?) -> Unit) {
-        disposable.add(
-            Single.zip(getPostObservable(), getUsersObservable(),
-                BiFunction { postsList, usersList ->
-                    return@BiFunction filterNameAuthorPost(
-                        postsList,
-                        usersList
-                    )
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    onResult(true, result)
-                },
-                    {
-                        onResult(false, null)
-                    }
-                )
-        )
+    fun getPostList() : Single<List<Post>> {
+        return Single.zip(getPostObservable(), getUsersObservable(), { posts, users ->
+            filterNameAuthorPost(posts, users)
+        })
     }
 
     private fun getUsersObservable(): Single<List<Users>> = APIManager.requestAPI.listUser()
@@ -52,6 +32,4 @@ class PostRepository {
         }
         return postsList
     }
-
-    fun disConnect() = disposable.clear()
 }

@@ -3,16 +3,21 @@ package com.example.viewmodelpost.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.viewmodelpost.model.Post
 import com.example.viewmodelpost.R
-import com.example.viewmodelpost.viewmodel.PostViewModel
+import kotlinx.android.synthetic.main.post_item_view.view.*
 
-class PostAdapter(private val onItemListener: OnItemListener) :
+class PostAdapter() :
     RecyclerView.Adapter<PostAdapter.ViewHolder>() {
     var postList: List<Post> = emptyList()
+
+    lateinit var onItemListener: OnItemListener
+
+    fun setOnItemClick(onItemListener: OnItemListener){
+        this.onItemListener=onItemListener
+    }
 
     fun updatePostList(postList: List<Post>) {
         this.postList = postList
@@ -26,19 +31,21 @@ class PostAdapter(private val onItemListener: OnItemListener) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvTitle.text = "Title : ${postList[position].title}"
-        holder.tvNameAuthor.text = "Name : ${postList[position].nameAuthor}"
-        holder.line.setOnClickListener { onItemListener.itemClick(postList[position]) }
+        holder.setUp(postList[position])
     }
 
     override fun getItemCount(): Int {
         return postList.size
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
-        val tvNameAuthor: TextView = itemView.findViewById(R.id.tvNameAuthor)
-        val line: LinearLayout = itemView.findViewById(R.id.line)
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        fun setUp(post: Post){
+            itemView.tvTitle.text = "Title : ${post.title}"
+            itemView.tvNameAuthor.text = "Name : ${post.nameAuthor}"
+            itemView.setOnClickListener {
+                onItemListener.onClick(post)
+            }
+        }
     }
 
 }

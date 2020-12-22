@@ -3,5 +3,5 @@ package com.example.viewmodelpost.adapter
 import com.example.viewmodelpost.model.Post
 
 interface OnItemListener {
-    fun itemClick(post : Post)
+    fun onClick(item : Post)
 }
