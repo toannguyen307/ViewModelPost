@@ -33,7 +33,6 @@ class PostFragment : Fragment(), OnItemListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        viewModelPost = activity?.let { ViewModelProviders.of(it).get(PostViewModel::class.java) }!!
         viewDataBinding = FragmentPostBinding.inflate(inflater, container, false).apply {
             viewModel = postViewModel
             lifecycleOwner = viewLifecycleOwner
