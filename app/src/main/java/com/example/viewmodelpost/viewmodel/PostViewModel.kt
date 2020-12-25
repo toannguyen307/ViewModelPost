@@ -13,30 +13,21 @@ import java.util.*
 
 class PostViewModel : BaseViewModel() {
 
-    private val postListLiveData: MutableLiveData<List<Post>> by lazy { MutableLiveData<List<Post>>()  }
+    private val postListLiveData: MutableLiveData<DataState<List<Post>>> by lazy { MutableLiveData<DataState<List<Post>>>()  }
 
-    fun fetchPostList(): LiveData<List<Post>> {
+    fun fetchPostList(): LiveData<DataState<List<Post>>> {
         PostRepository.getInstance().getPostList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
-                showLoadingData.value = true
+                postListLiveData.value=DataState.Loading
                 disposable.add(it)
             }
             .subscribe({ posts ->
-                showLoadingData.value = false
-                postListLiveData.value = posts
+                postListLiveData.value = DataState.Success(posts)
             }, {
-                empty.value = true
+                postListLiveData.value = DataState.Error(it)
             })
         return postListLiveData
-    }
-
-
-    class PostViewModelFactory() : ViewModelProvider.Factory{
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return PostViewModel() as T
-        }
-
     }
 }
