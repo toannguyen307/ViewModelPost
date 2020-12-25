@@ -5,36 +5,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.example.viewmodelpost.R
-import com.example.viewmodelpost.databinding.FragmentDetailPostBinding
-import com.example.viewmodelpost.databinding.FragmentPostBinding
 import com.example.viewmodelpost.model.Post
-import com.example.viewmodelpost.viewmodel.PostViewModel
 import kotlinx.android.synthetic.main.fragment_detail_post.*
 
 class DetailPostFragment : Fragment() {
 
-    private lateinit var viewDataBinding: FragmentDetailPostBinding
+    var post: Post? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            post = it.getParcelable("detailPost")
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        viewDataBinding = FragmentDetailPostBinding.inflate(inflater, container, false).apply {
-            viewModel = activity?.let { ViewModelProviders.of(it).get(PostViewModel::class.java) }
-            lifecycleOwner = viewLifecycleOwner
-        }
-        return viewDataBinding.root
+    ): View {
+        return inflater.inflate(R.layout.fragment_detail_post, container, false)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        post?.let {
+            tvId.text = "ID: ${it.id}"
+            tvBody.text = it.body
+            tvTitle.text = it.title
+            tvUserId.text = "User ID: ${it.userId}"
+            tvNameAuthor.text = "Name Author: ${it.nameAuthor}"
+        }
     }
 }

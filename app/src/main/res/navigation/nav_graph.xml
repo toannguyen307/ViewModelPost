@@ -18,5 +18,9 @@
         android:id="@+id/detailPostFragment"
         android:name="com.example.viewmodelpost.view.DetailPostFragment"
         android:label="Detail Post"
-        tools:layout="@layout/fragment_detail_post"/>
+        tools:layout="@layout/fragment_detail_post">
+        <argument
+            android:name="detailPost"
+            app:argType="com.example.viewmodelpost.model.Post" />
+    </fragment>
 </navigation>

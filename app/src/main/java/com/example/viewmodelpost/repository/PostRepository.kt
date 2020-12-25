@@ -27,8 +27,8 @@ class PostRepository {
     private fun getPostObservable(): Single<List<Post>> = APIManager.requestAPI.listPost()
 
     private fun filterNameAuthorPost(postsList: List<Post>, usersList: List<Users>): List<Post> {
-        postsList.forEach { post ->
-            post.nameAuthor = usersList.firstOrNull { it.id == post.userId }?.name.toString()
+        postsList.map { post->
+            post.nameAuthor= usersList.firstOrNull { it.id == post.userId }?.name.toString()
         }
         return postsList
     }

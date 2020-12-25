@@ -2,6 +2,7 @@ package com.example.viewmodelpost.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -17,7 +18,6 @@ class MainActivity : AppCompatActivity() {
 //        navController.navigateUp()
         setSupportActionBar(toolbar)
         NavigationUI.setupActionBarWithNavController(this,findNavController(R.id.main_nav))
-
     }
   override fun onSupportNavigateUp() = findNavController(R.id.main_nav).navigateUp()
 }

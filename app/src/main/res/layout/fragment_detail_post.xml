@@ -1,91 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".view.DetailPostFragment">
 
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="viewModel"
-            type="com.example.viewmodelpost.viewmodel.PostViewModel" />
-
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"
-        tools:context=".view.DetailPostFragment"
-        tools:layout_editor_absoluteY="81dp">
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_22sp"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints"
+        tools:text="Title" />
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
         <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
+            android:id="@+id/tvId"
+            android:layout_width="@dimen/width_10dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="#000000"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            tools:ignore="MissingConstraints"
-            tools:text="@{viewModel.itemPost.title}" />
+            android:textSize="@dimen/text_size_13sp"
+            tools:text="ID" />
 
-        <LinearLayout
-            android:id="@+id/linear"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvUserId"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+            android:textSize="@dimen/text_size_13sp"
+            tools:text="User ID" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvId"
-                android:layout_width="10dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="13sp"
-                tools:text="@{String.valueOf(viewModel.itemPost.id)}" />
+    <TextView
+        android:id="@+id/titleBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_body"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/linear" />
 
-            <TextView
-                android:id="@+id/tvUserId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="13sp"
-                tools:text="@{String.valueOf(viewModel.itemPost.userId)}" />
-        </LinearLayout>
+    <TextView
+        android:id="@+id/tvBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:textSize="@dimen/text_size_14sp"
+        app:layout_constraintTop_toBottomOf="@+id/titleBody"
+        tools:text="Body" />
 
-        <TextView
-            android:id="@+id/titleBody"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/linear"
-            android:text="Body" />
+    <TextView
+        android:id="@+id/tvNameAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/red"
+        android:textSize="@dimen/text_size_18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/tvBody"
+        tools:text="Name Author" />
 
-        <TextView
-            android:id="@+id/tvBody"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@+id/titleBody"
-            tools:text="@{viewModel.itemPost.body}" />
-
-        <TextView
-            android:id="@+id/tvNameAuthor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            tools:text="@{viewModel.itemPost.nameAuthor}"
-            android:textColor="#F80202"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/tvBody" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

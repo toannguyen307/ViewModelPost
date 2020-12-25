@@ -6,9 +6,9 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,8 +29,9 @@ class PostFragment : Fragment(), OnItemListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        viewModelPost = activity?.let { ViewModelProviders.of(it).get(PostViewModel::class.java) }!!
+    ): View {
+        viewModelPost= defaultViewModelProviderFactory.create(PostViewModel::class.java)
+//        viewModelPost = activity?.let { ViewModelProviders.of(it).get(PostViewModel::class.java) }!!
         viewDataBinding = FragmentPostBinding.inflate(inflater, container, false).apply {
             viewModel = viewModelPost
             lifecycleOwner = viewLifecycleOwner
@@ -42,7 +43,7 @@ class PostFragment : Fragment(), OnItemListener {
         super.onViewCreated(view, savedInstanceState)
         setUpAdapter()
         setUpSwipeRefresh()
-        viewDataBinding.viewModel?.fetchPostList()?.observe(viewLifecycleOwner, Observer {
+        viewModelPost.fetchPostList().observe(viewLifecycleOwner, Observer {
             adapters.updatePostList(it)
         })
 
@@ -64,7 +65,7 @@ class PostFragment : Fragment(), OnItemListener {
         swipeRefresh.setColorSchemeColors(R.color.colorPrimary)
         swipeRefresh.setOnRefreshListener {
             Handler().postDelayed({
-                viewDataBinding.viewModel?.fetchPostList()?.observe(viewLifecycleOwner, Observer {
+                viewModelPost.fetchPostList().observe(viewLifecycleOwner, Observer {
                     adapters.updatePostList(it)
                     swipeRefresh.isRefreshing = false
                 })
@@ -73,7 +74,7 @@ class PostFragment : Fragment(), OnItemListener {
     }
 
     override fun onClick(item: Post) {
-        viewModelPost.itemPost.value = item
-        this.findNavController().navigate(R.id.action_postFragment_to_detailPostFragment)
+        val bundle= bundleOf("detailPost" to item)
+        this.findNavController().navigate(R.id.action_postFragment_to_detailPostFragment,bundle)
     }
 }

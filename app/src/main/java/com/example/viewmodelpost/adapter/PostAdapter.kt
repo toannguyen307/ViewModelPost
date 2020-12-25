@@ -15,8 +15,8 @@ class PostAdapter() :
 
     lateinit var onItemListener: OnItemListener
 
-    fun setOnItemClick(onItemListener: OnItemListener){
-        this.onItemListener=onItemListener
+    fun setOnItemClick(onItemListener: OnItemListener) {
+        this.onItemListener = onItemListener
     }
 
     fun updatePostList(postList: List<Post>) {
@@ -39,9 +39,9 @@ class PostAdapter() :
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun setUp(post: Post){
-            itemView.tvTitle.text = "Title : ${post.title}"
-            itemView.tvNameAuthor.text = "Name : ${post.nameAuthor}"
+        fun setUp(post: Post) {
+            itemView.tvTitle.text = post.title
+            itemView.tvNameAuthor.text = post.nameAuthor
             itemView.setOnClickListener {
                 onItemListener.onClick(post)
             }
