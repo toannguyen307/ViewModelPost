@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -23,17 +25,17 @@ import kotlinx.android.synthetic.main.fragment_post.*
 class PostFragment : Fragment(), OnItemListener {
     private lateinit var adapters: PostAdapter
     private lateinit var viewDataBinding: FragmentPostBinding
-    private lateinit var viewModelPost: PostViewModel
+
+    private val postViewModel by viewModels<PostViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModelPost= defaultViewModelProviderFactory.create(PostViewModel::class.java)
 //        viewModelPost = activity?.let { ViewModelProviders.of(it).get(PostViewModel::class.java) }!!
         viewDataBinding = FragmentPostBinding.inflate(inflater, container, false).apply {
-            viewModel = viewModelPost
+            viewModel = postViewModel
             lifecycleOwner = viewLifecycleOwner
         }
         return viewDataBinding.root
@@ -43,7 +45,7 @@ class PostFragment : Fragment(), OnItemListener {
         super.onViewCreated(view, savedInstanceState)
         setUpAdapter()
         setUpSwipeRefresh()
-        viewModelPost.fetchPostList().observe(viewLifecycleOwner, Observer {
+        postViewModel.fetchPostList().observe(viewLifecycleOwner, Observer {
             adapters.updatePostList(it)
         })
 
@@ -65,7 +67,7 @@ class PostFragment : Fragment(), OnItemListener {
         swipeRefresh.setColorSchemeColors(R.color.colorPrimary)
         swipeRefresh.setOnRefreshListener {
             Handler().postDelayed({
-                viewModelPost.fetchPostList().observe(viewLifecycleOwner, Observer {
+                postViewModel.fetchPostList().observe(viewLifecycleOwner, Observer {
                     adapters.updatePostList(it)
                     swipeRefresh.isRefreshing = false
                 })

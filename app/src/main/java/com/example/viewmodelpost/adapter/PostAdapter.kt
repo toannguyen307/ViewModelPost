@@ -3,13 +3,12 @@ package com.example.viewmodelpost.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.viewmodelpost.model.Post
 import com.example.viewmodelpost.R
 import kotlinx.android.synthetic.main.post_item_view.view.*
 
-class PostAdapter() :
+class PostAdapter :
     RecyclerView.Adapter<PostAdapter.ViewHolder>() {
     var postList: List<Post> = emptyList()
 

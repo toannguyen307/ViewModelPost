@@ -13,8 +13,7 @@ import java.util.*
 
 class PostViewModel : BaseViewModel() {
 
-    private val postListLiveData: MutableLiveData<List<Post>> by lazy { MutableLiveData<List<Post>>() }
-
+    private val postListLiveData: MutableLiveData<List<Post>> by lazy { MutableLiveData<List<Post>>()  }
 
     fun fetchPostList(): LiveData<List<Post>> {
         PostRepository.getInstance().getPostList()
@@ -38,5 +37,6 @@ class PostViewModel : BaseViewModel() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return PostViewModel() as T
         }
+
     }
 }
