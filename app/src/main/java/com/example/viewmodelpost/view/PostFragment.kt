@@ -45,13 +45,15 @@ class PostFragment : Fragment(), OnItemListener {
         postViewModel.fetchPostList().observe(viewLifecycleOwner, Observer {
             when (it) {
                 is DataState.Loading -> {
-                    progressBar.visibility = View.VISIBLE
-                    swipeRefresh.isRefreshing = false
+                    if (it.state) {
+                        progressBar.visibility = View.VISIBLE
+                    } else {
+                        swipeRefresh.isRefreshing = false
+                        progressBar.visibility = View.GONE
+                    }
                 }
-
                 is DataState.Success -> {
                     adapters.updatePostList(it.data)
-                    progressBar.visibility = View.GONE
                 }
                 is DataState.Error -> {
                     txtError.text = "Disconnect NetWork"
@@ -76,7 +78,6 @@ class PostFragment : Fragment(), OnItemListener {
         swipeRefresh.setOnRefreshListener {
             Handler().postDelayed({
                 showData()
-                swipeRefresh.isRefreshing = false
             }, 1000)
         }
     }
