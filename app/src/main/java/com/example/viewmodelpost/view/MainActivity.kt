@@ -15,16 +15,9 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    private val appComponent: ApplicationComponent by lazy(mode = LazyThreadSafetyMode.NONE) {
-        DaggerApplicationComponent.builder()
-            .build()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        appComponent.inject(this)
-
         setSupportActionBar(toolbar)
         NavigationUI.setupActionBarWithNavController(this, findNavController(R.id.main_nav))
     }
