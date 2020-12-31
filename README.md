@@ -33,4 +33,22 @@ Navigation
 
 
 implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'	implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
-implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'	implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
+implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'	implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'\
+
+Dagger 2:
+
+implementation 'com.google.dagger:dagger:2.28'
+
+kapt 'com.google.dagger:dagger-compiler:2.28'
+
+kapt 'com.google.dagger:dagger-android-processor:2.28'
+
+implementation 'com.google.dagger:dagger-android-support:2.28'
+
+dynamic size
+
+implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
+implementation 'com.intuit.ssp:ssp-android:1.0.6'
+
+
