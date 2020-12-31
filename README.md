@@ -51,4 +51,9 @@ implementation 'com.intuit.sdp:sdp-android:1.0.6'
 
 implementation 'com.intuit.ssp:ssp-android:1.0.6'
 
+giau url trong builconfig
 
+    buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://jsonplaceholder.typicode.com\"")
+        }
