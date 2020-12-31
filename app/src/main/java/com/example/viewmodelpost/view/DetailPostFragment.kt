@@ -15,9 +15,7 @@ class DetailPostFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            post = it.getParcelable("detailPost")
-        }
+        post= arguments?.let { DetailPostFragmentArgs.fromBundle(it).detailPost }
     }
 
     override fun onCreateView(

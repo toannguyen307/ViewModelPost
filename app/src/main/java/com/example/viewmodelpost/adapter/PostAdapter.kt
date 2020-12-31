@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.viewmodelpost.model.Post
 import com.example.viewmodelpost.R
 import kotlinx.android.synthetic.main.post_item_view.view.*
+import javax.inject.Inject
 
-class PostAdapter :
+class PostAdapter @Inject constructor():
     RecyclerView.Adapter<PostAdapter.ViewHolder>() {
     var postList: List<Post> = emptyList()
 

@@ -7,17 +7,27 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.viewmodelpost.R
+import com.example.viewmodelpost.di.component.ApplicationComponent
+import com.example.viewmodelpost.di.component.DaggerApplicationComponent
+import com.example.viewmodelpost.viewmodel.PostViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+
+    private val appComponent: ApplicationComponent by lazy(mode = LazyThreadSafetyMode.NONE) {
+        DaggerApplicationComponent.builder()
+            .build()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav) as NavHostFragment
-//        val navController= navHostFragment.navController
-//        navController.navigateUp()
+        appComponent.inject(this)
+
         setSupportActionBar(toolbar)
-        NavigationUI.setupActionBarWithNavController(this,findNavController(R.id.main_nav))
+        NavigationUI.setupActionBarWithNavController(this, findNavController(R.id.main_nav))
     }
-  override fun onSupportNavigateUp() = findNavController(R.id.main_nav).navigateUp()
+
+    override fun onSupportNavigateUp() = findNavController(R.id.main_nav).navigateUp()
 }

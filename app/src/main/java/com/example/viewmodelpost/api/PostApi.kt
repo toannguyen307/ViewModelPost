@@ -5,13 +5,9 @@ import com.example.viewmodelpost.model.Users
 import io.reactivex.Single
 import retrofit2.http.GET
 
-interface APIService {
-    companion object{
-        const val URL = "https://jsonplaceholder.typicode.com/"
-    }
-
-    @GET("/posts")
+interface PostApi {
+    @GET("posts")
     fun listPost() : Single<List<Post>>
-    @GET("/users")
+    @GET("users")
     fun listUser(): Single<List<Users>>
 }
