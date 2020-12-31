@@ -6,8 +6,8 @@ import io.reactivex.Single
 import retrofit2.http.GET
 
 interface PostApi {
-    @GET("posts")
+    @GET("/posts")
     fun listPost() : Single<List<Post>>
-    @GET("users")
+    @GET("/users")
     fun listUser(): Single<List<Users>>
 }
