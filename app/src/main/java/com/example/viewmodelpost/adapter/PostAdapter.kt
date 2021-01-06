@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class PostAdapter @Inject constructor():
     RecyclerView.Adapter<PostAdapter.ViewHolder>() {
-    var postList: List<Post> = emptyList()
+    private var postList: List<Post> = emptyList()
 
     lateinit var onItemListener: OnItemListener
 

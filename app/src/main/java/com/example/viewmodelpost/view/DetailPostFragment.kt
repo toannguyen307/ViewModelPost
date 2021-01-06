@@ -5,27 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.navGraphViewModels
 import com.example.viewmodelpost.R
+import com.example.viewmodelpost.base.BaseFragment
 import com.example.viewmodelpost.model.Post
+import com.example.viewmodelpost.viewmodel.PostViewModel
 import kotlinx.android.synthetic.main.fragment_detail_post.*
 
-class DetailPostFragment : Fragment() {
+class DetailPostFragment : BaseFragment() {
+//If your ViewModel is scoped to the navigation graph
+//    val viewModel : PostViewModel by navGraphViewModels(R.id.nav_graph){
+//        defaultViewModelProviderFactory
+//    }
+
 
     var post: Post? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        post= arguments?.let { DetailPostFragmentArgs.fromBundle(it).detailPost }
+        post = arguments?.let { DetailPostFragmentArgs.fromBundle(it).detailPost }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_detail_post, container, false)
-    }
-
+    override fun layoutId(): Int = R.layout.fragment_detail_post
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

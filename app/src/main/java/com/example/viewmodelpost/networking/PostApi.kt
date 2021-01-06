@@ -1,4 +1,4 @@
-package com.example.viewmodelpost.api
+package com.example.viewmodelpost.networking
 
 import com.example.viewmodelpost.model.Post
 import com.example.viewmodelpost.model.Users

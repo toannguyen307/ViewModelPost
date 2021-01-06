@@ -2,17 +2,13 @@ package com.example.viewmodelpost.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.viewmodelpost.R
-import com.example.viewmodelpost.di.component.ApplicationComponent
-import com.example.viewmodelpost.di.component.DaggerApplicationComponent
-import com.example.viewmodelpost.viewmodel.PostViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

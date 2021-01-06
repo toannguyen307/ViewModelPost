@@ -11,48 +11,29 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.viewmodelpost.R
 import com.example.viewmodelpost.adapter.OnItemListener
 import com.example.viewmodelpost.adapter.PostAdapter
-import com.example.viewmodelpost.di.component.ApplicationComponent
-import com.example.viewmodelpost.di.component.DaggerApplicationComponent
-import com.example.viewmodelpost.di.module.NetworkModule
+import com.example.viewmodelpost.base.BaseFragment
 import com.example.viewmodelpost.model.Post
 import com.example.viewmodelpost.viewmodel.DataState
 import com.example.viewmodelpost.viewmodel.PostViewModel
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_post.*
 import javax.inject.Inject
 
-class PostFragment : Fragment(), OnItemListener {
-    @Inject lateinit var adapters: PostAdapter
-//    private val postViewModel by viewModels<PostViewModel>()
+@AndroidEntryPoint
+class PostFragment : BaseFragment(), OnItemListener {
     @Inject
-    lateinit var postViewModel: PostViewModel
+    lateinit var adapters: PostAdapter
+    private val postViewModel: PostViewModel by viewModels()
 
-    private val appComponent: ApplicationComponent by lazy(mode = LazyThreadSafetyMode.NONE) {
-        DaggerApplicationComponent.builder()
-            .build()
-    }
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        appComponent.inject(this)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_post, container, false)
-    }
-
+    //    @Inject
+//    lateinit var postViewModel: PostViewModel
+    override fun layoutId(): Int = R.layout.fragment_post
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpAdapter()
@@ -64,7 +45,7 @@ class PostFragment : Fragment(), OnItemListener {
         postViewModel.fetchPostList().observe(viewLifecycleOwner, Observer {
             when (it) {
                 is DataState.Loading -> {
-                    if (it.state) {
+                    if (it.states) {
                         progressBar.visibility = View.VISIBLE
                     } else {
                         swipeRefresh.isRefreshing = false

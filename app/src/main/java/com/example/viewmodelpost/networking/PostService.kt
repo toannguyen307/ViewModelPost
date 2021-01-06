@@ -1,6 +1,5 @@
-package com.example.viewmodelpost.di
+package com.example.viewmodelpost.networking
 
-import com.example.viewmodelpost.api.PostApi
 import retrofit2.Retrofit
 import javax.inject.Inject
 import javax.inject.Singleton
