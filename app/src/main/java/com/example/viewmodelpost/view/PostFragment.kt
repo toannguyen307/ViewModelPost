@@ -53,7 +53,7 @@ class PostFragment : BaseFragment(), OnItemListener {
                     }
                 }
                 is DataState.Success -> {
-                    adapters.updatePostList(it.data)
+                   adapters.submitList(it.data)
                 }
                 is DataState.Error -> {
                     txtError.text = "Disconnect NetWork"
